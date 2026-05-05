@@ -1,0 +1,585 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>GL Account Report</title>
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <!-- <link rel="stylesheet" href="Untitled_1.css">-->
+     
+     <style>
+     
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .controls {
+            background-color: #FFFFFF;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background-color: white;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .btn {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-success {
+            background-color: black;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0da271;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        .table-container {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        thead {
+            background: black;
+            color: white;
+            
+        }
+
+        th {
+            padding: 5px 2px;
+            text-align: left;
+            font-weight: 600;
+            font-size: .85rem;
+        }
+
+        th:last-child {
+            text-align: center;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+          background-color: #f8fafc;
+        }
+
+        td {
+            padding: 16px 15px;
+            vertical-align: middle;
+        }
+
+        td:last-child {
+            text-align: center;
+        }
+
+        .editable-cell {
+            position: relative;
+            padding: 0;
+        }
+
+        .editable-cell input, .editable-cell select {
+            width: 100%;
+            padding: 12px 10px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            background-color: transparent;
+            transition: border 0.2s;
+        }
+
+        .editable-cell input:focus, .editable-cell select:focus {
+            outline: none;
+            border-color: #4f46e5;
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+        }
+
+        .editable-cell input:hover, .editable-cell select:hover {
+            background-color: #f8fafc;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: transparent;
+        }
+
+        .icon-btn.edit-btn {
+            color: #4f46e5;
+        }
+
+        .icon-btn.edit-btn:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .icon-btn.save-btn {
+            color: #10b981;
+        }
+
+        .icon-btn.save-btn:hover {
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        .icon-btn.delete-btn {
+            color: #ef4444;
+        }
+
+        .icon-btn.delete-btn:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .icon-btn.cancel-btn {
+            color: #64748b;
+        }
+
+        .icon-btn.cancel-btn:hover {
+            background-color: rgba(100, 116, 139, 0.1);
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-active {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-inactive {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #64748b;
+        }
+        
+        .button {
+        	background-color: #4177CC; /* Blue */
+  			color: white;
+  			border-radius: 4px;
+  			 padding: 2px 8px 2px;
+  			 border:none;
+  			 cursor: pointer;
+            transition: all 0.2s;
+            background-color: transparent;
+  			 
+		}
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            th, td {
+                padding: 12px 10px;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .modal-header h3 {
+            color: #4f46e5;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 25px;
+        }
+    
+  }
+   
+     .auto-style1 {
+		 color: #FFFFFF;
+	 }
+	 .auto-style2 {
+		 color: #FFFFFF;
+		 font-weight: bold;
+	 }
+   
+     .auto-style3 {
+		 font-weight: bold;
+		 border-left-color: #A0A0A0;
+		 border-right-color: #C0C0C0;
+		 border-top-color: #A0A0A0;
+		 border-bottom-color: #C0C0C0;
+		 padding: 16px 15px;
+	 }
+   
+     .auto-style4 {
+		 font-size: small;
+	 }
+   
+     </style>
+
+</head>
+
+<body>
+
+<div>
+	<h2 class="auto-style1" style="color:#4177CC">GL Account Allocation Realtime Status Summary Report</h2>
+</div>
+<br>
+
+<table style="width: 100%;">
+	<tr>
+		<td><div style="color:#4177CC">
+	<h3 class="auto-style1">For GL peroid of:</h3>
+</div>
+<form method="post">
+	<select name="_GL Peroid" style="height: 38px">
+	<option>202606-202607</option>
+	<option>202605-202606</option>
+	<option>202604-202605</option>
+	<option>202603-202604</option>
+		</select></form>
+</td>
+		<td><div>
+	<h3 class="auto-style1" style="color:#4177CC">Filter By Region</h3>
+</div>
+<form method="post">
+	<select name="_alloc_catgory" style="height: 38px">
+	<option>All Regions</option>
+	<option>MA</option>
+	<option>GA</option>
+	<option>HI</option>
+	<option>CO</option>
+
+<option>NW</option>
+	<option>NC</option>
+
+	</select></form>
+</td>
+		<td>	<div>
+	<h3 class="auto-style1" style="color:#4177CC">Filter By Status</h3>
+</div>
+<form method="post">
+	<select name="_alloc_catgory" style="height: 38px">
+	<option>All Statuses</option>
+	<option>Green</option>
+	<option>Yellow</option>
+	<option>Red</option>
+
+	</select></form>
+</td>
+	</tr>
+</table>
+
+      
+
+
+<table style="width: 90%; ">
+	<tr style="height:30px">
+		<td style="width: 446px;  background-color :gray;" class="auto-style2">Account</td>
+		<td style="width: 360px;  background-color :gray;" class="auto-style2">Revenue To Target Pct.</td>
+		<td  style="  background-color :gray;" class="auto-style2">Status</td>
+		<td  style=" background-color :gray;" class="auto-style2">View-Edit</td>
+	</tr>
+	<tr>
+		<td style="width: 446px">ALL6893591</td>
+		<td style="width: 360px">100%</td>
+		<td><img src="greenlight.png" width="30" height="30"></td>
+		<td class="auto-style4">
+		<a href="https://htmlpreview.github.io/?https://github.com/Nick60661/html-crud_examples/blob/main/NRAP_Rules_Manager_wireframe_v1a.html">
+  <img src="eye.png" alt="Description of link" style="width:30px; height:30px;">
+</a>
+		
+		
+		</td>
+	</tr>
+	<tr>
+		<td style="width: 446px">ALL6896341</td>
+		<td style="width: 360px">100%</td>
+		<td><img src="greenlight.png" width="30" height="30"></td>
+		<td>		<a href="https://htmlpreview.github.io/?https://github.com/Nick60661/html-crud_examples/blob/main/NRAP_Rules_Manager_wireframe_v1a.html">
+  <img src="eye.png" alt="Description of link" style="width:30px; height:30px;">
+</a>
+</td>
+	</tr>
+	<tr>
+		<td style="width: 446px">ALL6896377</td>
+		<td style="width: 360px">100%</td>
+		<td><img src="greenlight.png" width="30" height="30"></td>
+		<td>		<a href="https://htmlpreview.github.io/?https://github.com/Nick60661/html-crud_examples/blob/main/NRAP_Rules_Manager_wireframe_v1a.html">
+  <img src="eye.png" alt="Description of link" style="width:30px; height:30px;">
+</a>
+</td>
+	</tr>
+	<tr>
+		<td style="width: 446px">SDSC6896341</td>
+		<td style="width: 360px">96%</td>
+		<td><img src="yellowlight.png" width="30" height="30"></td>
+		<td>		<a href="https://htmlpreview.github.io/?https://github.com/Nick60661/html-crud_examples/blob/main/NRAP_Rules_Manager_wireframe_v1a.html">
+  <img src="eye.png" alt="Description of link" style="width:30px; height:30px;">
+</a>
+</td>
+	</tr>
+	<tr>
+		<td style="width: 446px">SDSC6897749</td>
+		<td style="width: 360px">95%</td>
+		<td><img src="yellowlight.png" width="30" height="30"></td>
+		<td>		<a href="https://htmlpreview.github.io/?https://github.com/Nick60661/html-crud_examples/blob/main/NRAP_Rules_Manager_wireframe_v1a.html">
+  <img src="eye.png" alt="Description of link" style="width:30px; height:30px;">
+</a>
+</td>
+	</tr>
+	
+		<tr>
+		<td style="width: 446px">SDSC6897722</td>
+		<td style="width: 360px">87%</td>
+		<td><img src="redlight.png" width="30" height="30"></td>
+		<td>		<a href="https://htmlpreview.github.io/?https://github.com/Nick60661/html-crud_examples/blob/main/NRAP_Rules_Manager_wireframe_v1a.html">
+  <img src="eye.png" alt="Description of link" style="width:30px; height:30px;">
+</a>
+</td>
+	</tr>
+
+
+	<tr>
+		<td style="width: 446px">SDSC6897755</td>
+		<td style="width: 360px">85%</td>
+		<td><img src="redlight.png" width="30" height="30"></td>
+		<td>		<a href="https://htmlpreview.github.io/?https://github.com/Nick60661/html-crud_examples/blob/main/NRAP_Rules_Manager_wireframe_v1a.html">
+  <img src="eye.png" alt="Description of link" style="width:30px; height:30px;">
+</a>
+</td>
+	</tr>
+
+
+
+	<tr>
+		<td style="width: 446px" class="auto-style3">Summary</td>
+		<td style="width: 360px"><b>Overall Target Pct. 91%</b></td>
+		<td class="auto-style3">2 0f 7 accounts needs attention.</td>
+		<td>	</td>
+	</tr>
+
+</table>
+
+</body>
+
+</html>
