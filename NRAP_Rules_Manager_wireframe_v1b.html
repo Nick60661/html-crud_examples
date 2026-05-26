@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)file:///C:/temp/ncap_rules_manager.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+   <title>NRAP Rules Manager</title>
+   
+     <link rel="stylesheet" href="./NRAP_Rules_Manager_wireframe_v1a_files/all.min.css">
+     <!-- <link rel="stylesheet" href="Untitled_1.css">-->
+     
+     <style>
+     
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .controls {
+            background-color: #FFFFFF;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background-color: white;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .btn {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-success {
+            background-color: black;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0da271;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        .table-container {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        thead {
+            background: black;
+            color: white;
+            
+        }
+
+        th {
+            padding: 5px 2px;
+            text-align: left;
+            font-weight: 600;
+            font-size: .85rem;
+        }
+
+        th:last-child {
+            text-align: center;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+          background-color: #f8fafc;
+        }
+
+        td {
+            padding: 16px 15px;
+            vertical-align: middle;
+        }
+
+        td:last-child {
+            text-align: center;
+        }
+
+        .editable-cell {
+            position: relative;
+            padding: 0;
+        }
+
+        .editable-cell input, .editable-cell select {
+            width: 100%;
+            padding: 12px 10px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            background-color: transparent;
+            transition: border 0.2s;
+        }
+
+        .editable-cell input:focus, .editable-cell select:focus {
+            outline: none;
+            border-color: #4f46e5;
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+        }
+
+        .editable-cell input:hover, .editable-cell select:hover {
+            background-color: #f8fafc;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: transparent;
+        }
+
+        .icon-btn.edit-btn {
+            color: #4f46e5;
+        }
+
+        .icon-btn.edit-btn:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .icon-btn.save-btn {
+            color: #10b981;
+        }
+
+        .icon-btn.save-btn:hover {
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        .icon-btn.delete-btn {
+            color: #ef4444;
+        }
+
+        .icon-btn.delete-btn:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .icon-btn.cancel-btn {
+            color: #64748b;
+        }
+
+        .icon-btn.cancel-btn:hover {
+            background-color: rgba(100, 116, 139, 0.1);
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-active {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-inactive {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #64748b;
+        }
+        
+        .button {
+        	background-color: #4177CC; /* Blue */
+  			color: white;
+  			border-radius: 4px;
+  			 padding: 2px 8px 2px;
+  			 border:none;
+  			 cursor: pointer;
+            transition: all 0.2s;
+            background-color: transparent;
+  			 
+		}
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            th, td {
+                padding: 12px 10px;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .modal-header h3 {
+            color: #4f46e5;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 25px;
+        }
+    
+  }
+   
+     </style>
+    
+    </head>
+<body>
+
+<div>
+<table border="0">
+<tbody><tr><td style="text-align:left; width:380px">
+	<h2 class="auto-style1" style="color:#4177CC">Edit/Create Rules for Account</h2> 
+	</td>
+	<td style="text-align:left">
+	<button class="button" style="background-color: #4177CC; color: white;  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);" onclick="alert(&#39;Check to see has at least 1 ruleset.\nSave.\n&#39;)">Save</button> 
+	
+	<button class="button" style="background-color: #4177CC; color: white; box-shadow: 5px 5px 10px rgba(0,0,0,0.3);" onclick="alert(&#39;Are you sure you want to delete this rule master?\nAll rulesets and rules will be deleted as well.\n \nDo you wish to proceed?&#39;)">Delete</button>
+
+
+	</td>
+	<td style="text-align:right">
+	
+	<button class="button" style="background-color: #4177CC; color: white;  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);" onclick="alert(&#39;Not applicable in Draft mode.\nRuns diagnostics and statistics on ruleset(s) for account.\n \nReturns detailed report.&#39;)">Test Run</button>
+	
+	<button class="button" style="background-color: #4177CC; color: white; box-shadow: 5px 5px 10px rgba(0,0,0,0.3);" onclick="alert(&#39;Not applicable in Draft mode.\nPops up modal window with list of prior rules of previously published and proccessed runs for this account.\nRuns diagnostics and statistics on ruleset(s) compared to published run selected for comparison.\n \nReturns detailed comparison report.&#39;)">Test Run w/Comparison</button>
+	
+	</td>
+
+	</tr>
+</tbody></table>
+	
+
+
+<table border="0" style="vertical-align:top">
+
+<tbody><tr>
+
+<td style="width: 460px;">
+<div>
+	<h4 class="auto-style1" style="text-align:right; color:#4177CC">Enter Account level info:	
+</h4>
+</div>
+
+
+</td>
+
+
+<td>
+
+      </td><td><form method="post">
+</form>
+<div>
+	<h4 class="auto-style1" style="color:#4177CC">Select Region</h4>
+</div>
+<form method="post">
+	<select name="_alloc_catgory" style="height: 38px">
+	<option>Select region...</option>
+	<option>CO</option>
+	<option>GA</option>
+	<option>HI</option>
+	<option>MA</option>
+<option>NC</option>
+	<option>SC</option>
+
+	</select></form>
+</td>
+<td>
+
+      </td><td><form method="post">
+</form>
+<div>
+	<h4 class="auto-style1" style="color:#4177CC" title="Dependent on region selection">*Select an Account</h4>
+</div>
+<form method="post">
+	<select name="_alloc_catgory" style="height: 38px">
+	<option>Select acount...</option>
+	<option>47305</option>
+<option>49025</option>
+	<option>42020</option>
+		<option>405851523</option>
+	<option>405851526</option>
+	<option>421501110</option>
+
+
+
+	</select></form>
+</td>
+
+
+
+        <td>
+<div>
+	<h4 class="auto-style1" style="color:#4177CC">Enter Account Rules Name</h4>
+</div>
+<div>
+ <input type="text" id="rsname" name="rsname" style="width: 200px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" value="Enter a unique name...">
+</div>
+</td>
+
+
+<td style="text-align:left;">
+<div>
+	<h4 class="auto-style1" style="color:#4177CC">Account Rules Status</h4>
+</div>
+
+      
+  <form method="post">
+</form>
+<form method="post">
+	<select name="_alloc_catgory" style="height: 38px">
+	
+	<option>Draft</option>
+		<option>In Progress</option>
+
+	<option>Ready for Review</option>
+	<option>Publish Final</option>
+	</select></form>
+
+      
+</td></tr></tbody></table>
+<br>
+
+
+
+<div class="container">
+
+<table border="0">
+<tbody><tr>
+<td style="text-align:left; width:320px; padding:0;">
+
+<div>
+	<h3 class="auto-style1" style="color:#7D6A30; ">&nbsp;Edit/Create Ruleset 1</h3>
+</div>
+</td>
+<td style="text-align:left; padding:0">
+	<button class="button" style="background-color: #7D6A30; color: white;  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);" onclick="alert(&#39;Some DQ-Validation Check 1\nSome DQ-Validation Check 2\nIf pass, record saved&#39;)">Save</button> 
+	
+	<button class="button" style="background-color: #7D6A30; color: white; box-shadow: 5px 5px 10px rgba(0,0,0,0.3);" onclick="alert(&#39;You are about to delete this ruleset\nAll rules for this ruleset will also be deleted.\n \nDo you wish to proceed?&#39;)">Delete</button>&nbsp;&nbsp;&nbsp;
+<button class="button" style="background-color: #7D6A30; color: white;  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);" onclick="alert(&#39;Creates/increments new ruleset and rules section.\n.\n&#39;)"><i class="fas fa-plus-circle"></i> Add Ruleset 2</button>
+<button class="button" style="background-color: #7D6A30; color: white; box-shadow: 5px 5px 10px rgba(0,0,0,0.3);" onclick="alert(&#39;Creates/increments new ruleset and rules section with copy of prior ruleset rules.&#39;)"><i class="fas fa-plus-circle"></i> Add Ruleset 2 (clone rules from Ruleset 1)</button>
+
+
+	</td>
+	
+	<td style="text-align:right; padding:0">
+	<button class="button" style="background-color: #7D6A30; color: white; box-shadow: 5px 5px 10px rgba(0,0,0,0.3);" onclick="alert(&#39;EXAMPLE:\nThe statistic amounts for this rulset fall outside of allowed 5% margin.\nJournal line SB12034 rev amount should be 10.00 but only 6.99 has been allocated.\n  \nPlease revise.&#39;)">Test Run this Ruleset</button>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+	</td>
+
+
+
+</tr>
+
+</tbody></table>
+
+
+<table border="0" style="background-color:white; ">
+  
+ 
+  <tbody>
+    <tr>
+    
+
+      <td style="width: 120px; vertical-align: top;">
+<div>
+	<h6 class="auto-style1" style="color:#7D6A30;">eff start mnth</h6>
+</div>
+<img src="./NRAP_Rules_Manager_wireframe_v1a_files/calendar.png" width="30" height="30">
+<br><h6 class="auto-style1" style="color:#7D6A30;">202601</h6>
+
+
+
+</td>
+<td style="width: 120px; vertical-align: top;">
+<div>
+	<h6 class="auto-style1" style="color:#7D6A30;">eff end mnth</h6>
+</div>
+<img src="./NRAP_Rules_Manager_wireframe_v1a_files/calendar.png" width="30" height="30">
+<br><h6 class="auto-style1" style="color:#7D6A30;">202612</h6>
+
+
+</td>
+
+
+        <td style="width: 220px; text-align: right;">
+
+    <div>
+	<h5 class="auto-style1" style="color:#7D6A30;" title="Dependent on account selection">*Select Journal ID(s)</h5>
+</div>
+
+    
+      </td><td> <form method="post">
+		  <input name="Checkbox1" type="checkbox"> Deselect all</form>
+<form method="post">
+	<select name="_alloc_catgory" style="height: 110px" multiple>
+	<option value="ALL6893591" selected>ALL6893591</option>
+	<option value="ALL6896341" selected>ALL6896341</option>
+	<option value="ALL6897749" selected>ALL6897749</option>
+	<option value="ALL6901731" selected>ALL6901731</option>
+	<option value="ALL6903157" selected>ALL6903157</option>
+<option value="ALL6903159" selected>ALL6903159</option>
+	<option value="ALL6905003" selected>ALL6905003</option>
+		<option value="SDSC6893591" selected>SDSC6893591</option>
+	<option value="SDSC6896341" selected>SDSC6896341</option>
+	<option value="SDSC6897749" selected>SDSC6897749</option>
+	<option value="SDSC6901731" selected>SDSC6901731</option>
+	<option value="SDSC6903157" selected>SDSC6903157</option>
+<option value="MBR6903159xxx" selected>MBR6903159xxx</option>
+	<option value="MBR6905003xxx" selected>MBR6905003xxx</option>
+
+
+	</select></form>
+
+</td>
+
+    
+      <td><form method="post">
+</form>
+<div>
+	<h5 class="auto-style1" style="color:#7D6A30;" title="Dependent on account selection">*Select Category</h5>
+</div>
+<form method="post">
+	<select name="_alloc_catgory" style="height: 38px">
+	<option>Dues</option>
+	<option>Copay</option>
+	</select></form>
+</td>
+      <td>
+      
+  <form method="post">
+</form>
+<div>
+	<h5 class="auto-style1" style="color:#7D6A30;">Select Statistic</h5>
+</div>
+	<select name="_alloc_catgory" style="height: 38px">
+	<option>PMPM</option>
+	<option>Stat_SGRP</option>
+	</select> 
+	
+	<button class="button" style="background-color: #7D6A30; color: white;" onclick="alert(&#39;Allows user to view statistic and make edits (saved as an override).&#39;)">View-Edit</button> 
+     </td>
+      
+            <td style="text-align: left;">
+    <!--   
+  <form method="post">
+</form>
+<div>
+	<h5 class="auto-style1" style="color:#7D6A30;" title="Dependant on category selection?">*Select output grain</h5>
+</div>
+
+
+  <input type="radio" id="age1" name="age" value="30" checked>
+  <label for="age1">member</label><br>
+  <input type="radio" id="age2" name="age" value="60">
+  <label for="age2">encounter</label><br>  
+  <input type="radio" id="age3" name="age" value="100">
+  <label for="age3">charge</label>
+  
+   -->
+      </td>  
+    </tr>    
+    
+    </tbody>
+</table>
+</div>
+
+<div class="container">
+      
+        <div class="controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search qualifiers in Ruleset 1...">
+            </div>
+            <div>
+             
+                <button class="btn btn-success" id="addRowBtn">
+                    <i class="fas fa-plus-circle"></i>Add qualifier(s) to Ruleset 1
+                </button>
+                <button class="btn btn-danger" id="deleteSelectedBtn" style="display: none;">
+                    <i class="fas fa-trash-alt"></i> Delete Selected
+                </button>
+                           </div>
+        </div>
+
+        <div class="table-container">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th width="50">
+                            <input type="checkbox" id="selectAll">
+                        </th>
+                        <th width="80">ID</th>
+                        <th>Qualifier Name</th>
+                        <th>Attribute</th>
+                        <th>Condition</th>
+                        <th>Attribute value(s)</th>
+                        <th>Logic Connector </th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"><tr data-id="1">
+                        <td>
+                            <input type="checkbox" class="row-select" data-id="1">
+                        </td>
+                        <td>1</td>
+                        <td class="editable-cell" data-field="name">
+                            <input type="text" value="Member rule" readonly="">
+                        </td>
+                        <td class="editable-cell" data-field="email">
+                             <select readonly="">
+                                <option value="member_id" selected="">member_id</option>
+                                <option value="lob">lob</option>
+                                <option value="encounter_type">encounter_type</option>    
+								<option value="group_id">group_id</option>  								
+                            </select>
+                                                    
+                        </td>
+                        <td class="editable-cell" data-field="department">
+                            <select readonly="">
+                                <option value="IN">IN</option>
+                                <option value="NOT IN" selected="">NOT IN</option>
+                                <option value="EQUALS">EQUALS</option>
+                                <option value="GREATER THAN">GREATER THAN</option>
+                                <option value="LIKE">LIKE</option>
+                                <option value="NOT LIKE">NOT LIKE</option>
+                            </select>
+                        </td>
+                        <td class="editable-cell" data-field="position">
+                            <input type="text" value="S45788" readonly="">
+                        </td>
+                        
+                        
+                        
+                         <td class="editable-cell" data-field="connector">
+                            <select readonly="">
+                                <option value="AND" selected="">AND</option>
+                                <option value="OR">OR</option>
+                                <option value="END">END</option>                              
+                            </select>
+                        </td>
+
+                        
+                        
+                        <td>
+                            <span class="status status-active">
+                                Active
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="icon-btn edit-btn" title="Edit Qualifier">
+                                   <img src="./NRAP_Rules_Manager_wireframe_v1a_files/edit.png" width="20" height="20">
+                                </button>
+                                <button class="icon-btn delete-btn" title="Delete Qualifier">
+                                 <img src="./NRAP_Rules_Manager_wireframe_v1a_files/delete.png" width="20" height="20">
+                                </button>
+                            </div>
+                        </td>
+                    </tr><tr data-id="2">
+                        <td>
+                            <input type="checkbox" class="row-select" data-id="2">
+                        </td>
+                        <td>2</td>
+                        <td class="editable-cell" data-field="name">
+                            <input type="text" value="Encounter type rule" readonly="">
+                        </td>
+                        <td class="editable-cell" data-field="email">
+                             <select readonly="">
+                                <option value="member_id">member_id</option>
+                                <option value="lob">lob</option>
+                                <option value="encounter_type" selected="">encounter_type</option>    
+								<option value="group_id">group_id</option>  								
+                            </select>
+                                                    
+                        </td>
+                        <td class="editable-cell" data-field="department">
+                            <select readonly="">
+                                <option value="IN">IN</option>
+                                <option value="NOT IN">NOT IN</option>
+                                <option value="EQUALS" selected="">EQUALS</option>
+                                <option value="GREATER THAN">GREATER THAN</option>
+                                <option value="LIKE">LIKE</option>
+                                <option value="NOT LIKE">NOT LIKE</option>
+                            </select>
+                        </td>
+                        <td class="editable-cell" data-field="position">
+                            <input type="text" value="IP" readonly="">
+                        </td>
+                        
+                        
+                        
+                         <td class="editable-cell" data-field="connector">
+                            <select readonly="">
+                                <option value="AND" selected="">AND</option>
+                                <option value="OR">OR</option>
+                                <option value="END">END</option>                              
+                            </select>
+                        </td>
+
+                        
+                        
+                        <td>
+                            <span class="status status-active">
+                                Active
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="icon-btn edit-btn" title="Edit Qualifier">
+                                   <img src="./NRAP_Rules_Manager_wireframe_v1a_files/edit.png" width="20" height="20">
+                                </button>
+                                <button class="icon-btn delete-btn" title="Delete Qualifier">
+                                 <img src="./NRAP_Rules_Manager_wireframe_v1a_files/delete.png" width="20" height="20">
+                                </button>
+                            </div>
+                        </td>
+                    </tr><tr data-id="3">
+                        <td>
+                            <input type="checkbox" class="row-select" data-id="3">
+                        </td>
+                        <td>3</td>
+                        <td class="editable-cell" data-field="name">
+                            <input type="text" value="LOB rule" readonly="">
+                        </td>
+                        <td class="editable-cell" data-field="email">
+                             <select readonly="">
+                                <option value="member_id">member_id</option>
+                                <option value="lob" selected="">lob</option>
+                                <option value="encounter_type">encounter_type</option>    
+								<option value="group_id">group_id</option>  								
+                            </select>
+                                                    
+                        </td>
+                        <td class="editable-cell" data-field="department">
+                            <select readonly="">
+                                <option value="IN" selected="">IN</option>
+                                <option value="NOT IN">NOT IN</option>
+                                <option value="EQUALS">EQUALS</option>
+                                <option value="GREATER THAN">GREATER THAN</option>
+                                <option value="LIKE">LIKE</option>
+                                <option value="NOT LIKE">NOT LIKE</option>
+                            </select>
+                        </td>
+                        <td class="editable-cell" data-field="position">
+                            <input type="text" value="511,512" readonly="">
+                        </td>
+                        
+                        
+                        
+                         <td class="editable-cell" data-field="connector">
+                            <select readonly="">
+                                <option value="AND">AND</option>
+                                <option value="OR">OR</option>
+                                <option value="END" selected="">END</option>                              
+                            </select>
+                        </td>
+
+                        
+                        
+                        <td>
+                            <span class="status status-inactive">
+                                Inactive
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="icon-btn edit-btn" title="Edit Qualifier">
+                                   <img src="./NRAP_Rules_Manager_wireframe_v1a_files/edit.png" width="20" height="20">
+                                </button>
+                                <button class="icon-btn delete-btn" title="Delete Qualifier">
+                                 <img src="./NRAP_Rules_Manager_wireframe_v1a_files/delete.png" width="20" height="20">
+                                </button>
+                            </div>
+                        </td>
+                    </tr></tbody>
+            </table>
+            
+            
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <i class="fas fa-table"></i>
+                <h3>No Data Available</h3>
+                <p>Click the "Add New Qualifier" button to add your first entry.</p>
+            </div>
+        </div>
+
+           </div>
+           
+    
+    <!-- Modal for adding/editing rows -->
+    <div class="modal" id="rowModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Qualifier</h3>
+            </div>
+            <form id="rowForm">
+                <div class="form-group">
+                    <label for="inputName">Qaulifier Name *</label>
+                    <input type="text" id="inputName" required="">
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail">Attribute *</label>
+                                         					
+					<select id="inputEmail" required="">
+                        <option value="">Select Attribute</option>
+                        <option value="member_id">member_id</option>
+                        <option value="lob">lob</option>
+                        <option value="encounter_type">encounter_type</option>
+                        <option value="group_id">group_id</option>
+                   
+                    </select>
+                                    </div>
+                <div class="form-group">
+                    <label for="inputDepartment">Condition *</label>
+                    <select id="inputDepartment" required="">
+                        <option value="">Select Condition</option>
+                        <option value="IN">IN</option>
+                        <option value="NOT IN">NOT IN</option>
+                        <option value="EQUALS">EQUALS</option>
+                        <option value="GREATER THAN">GREATER THAN</option>
+                        <option value="LIKE">LIKE</option>
+                        <option value="NOT LIKE">NOT LIKE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputPosition">Attribute value(s) *</label>
+                    <input type="text" id="inputPosition" required="">
+                </div>
+                
+                
+                <div class="form-group">
+                    <label for="inputConnector">Connector *</label>
+                    <select id="inputConnector" required="">
+                        <option value="">Select Connector</option>
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="END">END</option>
+                       
+                    </select>
+                </div>
+
+                
+                
+                
+                <div class="form-group">
+                    <label for="inputStatus">Status *</label>
+                    <select id="inputStatus" required="">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-danger" id="cancelModalBtn">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save Qualifier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+           // Table data - initial sample data
+            let tableData = [
+                { id: 1, name: "Member rule", email: "member_id", department: "NOT IN", position: "S45788", connector: "AND", status: "Active" },
+                { id: 2, name: "Encounter type rule", email: "encounter_type", department: "EQUALS", position: "IP",  connector: "AND", status: "Active" },
+                { id: 3, name: "LOB rule", email: "lob", department: "IN", position: "511,512",  connector: "END", status: "Inactive" }
+              /*   { id: 4, name: "Sarah Williams", email: "sarah.w@example.com", department: "HR", position: "HR Specialist", status: "Inactive" },
+                { id: 5, name: "Robert Davis", email: "robert.d@example.com", department: "Finance", position: "Financial Analyst", status: "Active" }
+            */
+            ];
+
+            // DOM elements
+            const tableBody = document.getElementById('tableBody');
+            const emptyState = document.getElementById('emptyState');
+            const searchInput = document.getElementById('searchInput');
+            const addRowBtn = document.getElementById('addRowBtn');
+            const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
+            const selectAllCheckbox = document.getElementById('selectAll');
+            const rowModal = document.getElementById('rowModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const rowForm = document.getElementById('rowForm');
+            const cancelModalBtn = document.getElementById('cancelModalBtn');
+            
+            // Form inputs
+            const inputName = document.getElementById('inputName');
+            const inputEmail = document.getElementById('inputEmail');
+            const inputDepartment = document.getElementById('inputDepartment');
+            const inputPosition = document.getElementById('inputPosition');            
+            const inputConnector = document.getElementById('inputConnector');            
+            const inputStatus = document.getElementById('inputStatus');
+
+            // Variables for managing row editing
+            let isEditing = false;
+            let editingRowId = null;
+            let selectedRows = new Set();
+
+            // Initialize the table
+            function renderTable(data = tableData) {
+                tableBody.innerHTML = '';
+                
+                if (data.length === 0) {
+                    emptyState.style.display = 'block';
+                    deleteSelectedBtn.style.display = 'none';
+                    selectAllCheckbox.checked = false;
+                    return;
+                }
+                
+                emptyState.style.display = 'none';
+                
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.setAttribute('data-id', row.id);
+                    
+                    // Check if this row is selected
+                    const isSelected = selectedRows.has(row.id);
+                    
+                    tr.innerHTML = `
+                        <td>
+                            <input type="checkbox" class="row-select" ${isSelected ? 'checked' : ''} data-id="${row.id}">
+                        </td>
+                        <td>${row.id}</td>
+                        <td class="editable-cell" data-field="name">
+                            <input type="text" value="${row.name}" readonly>
+                        </td>
+                        <td class="editable-cell" data-field="email">
+                             <select readonly>
+                                <option value="member_id" ${row.email === 'member_id' ? 'selected' : ''}>member_id</option>
+                                <option value="lob" ${row.email === 'lob' ? 'selected' : ''}>lob</option>
+                                <option value="encounter_type" ${row.email === 'encounter_type' ? 'selected' : ''}>encounter_type</option>    
+								<option value="group_id" ${row.email === 'group_id' ? 'selected':''}>group_id</option>  								
+                            </select>
+                                                    
+                        </td>
+                        <td class="editable-cell" data-field="department">
+                            <select readonly>
+                                <option value="IN" ${row.department === 'IN' ? 'selected' : ''}>IN</option>
+                                <option value="NOT IN" ${row.department === 'NOT IN' ? 'selected' : ''}>NOT IN</option>
+                                <option value="EQUALS" ${row.department === 'EQUALS' ? 'selected' : ''}>EQUALS</option>
+                                <option value="GREATER THAN" ${row.department === 'GREATER THAN' ? 'selected' : ''}>GREATER THAN</option>
+                                <option value="LIKE" ${row.department === 'LIKE' ? 'selected' : ''}>LIKE</option>
+                                <option value="NOT LIKE" ${row.department === 'NOT LIKE' ? 'selected' : ''}>NOT LIKE</option>
+                            </select>
+                        </td>
+                        <td class="editable-cell" data-field="position">
+                            <input type="text" value="${row.position}" readonly>
+                        </td>
+                        
+                        
+                        
+                         <td class="editable-cell" data-field="connector">
+                            <select readonly>
+                                <option value="AND" ${row.connector === 'AND' ? 'selected' : ''}>AND</option>
+                                <option value="OR" ${row.connector === 'OR' ? 'selected' : ''}>OR</option>
+                                <option value="END" ${row.connector === 'END' ? 'selected' : ''}>END</option>                              
+                            </select>
+                        </td>
+
+                        
+                        
+                        <td>
+                            <span class="status ${row.status === 'Active' ? 'status-active' : 'status-inactive'}">
+                                ${row.status}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="icon-btn edit-btn" title="Edit Qualifier">
+                                   <img src="edit.png" width="20" height="20">
+                                </button>
+                                <button class="icon-btn delete-btn" title="Delete Qualifier">
+                                 <img src="delete.png" width="20" height="20">
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    
+                    tableBody.appendChild(tr);
+                });
+                
+                // Show/hide delete selected button
+                deleteSelectedBtn.style.display = selectedRows.size > 0 ? 'inline-flex' : 'none';
+            }
+
+            // Generate a new ID
+            function generateNewId() {
+                return tableData.length > 0 ? Math.max(...tableData.map(row => row.id)) + 1 : 1;
+            }
+
+            // Add new row
+            function addRow(rowData) {
+                const newId = generateNewId();
+                const newRow = { id: newId, ...rowData };
+                tableData.push(newRow);
+                renderTable();
+            }
+
+            // Update existing row
+            function updateRow(id, updatedData) {
+                const index = tableData.findIndex(row => row.id === id);
+                if (index !== -1) {
+                    tableData[index] = { ...tableData[index], ...updatedData };
+                    renderTable();
+                }
+            }
+
+            // Delete row by ID
+            function deleteRow(id) {
+                tableData = tableData.filter(row => row.id !== id);
+                selectedRows.delete(id);
+                renderTable();
+            }
+
+            // Delete selected rows
+            function deleteSelectedRows() {
+                if (selectedRows.size === 0) return;
+                
+                if (confirm(`Are you sure you want to delete ${selectedRows.size} selected row(s)?`)) {
+                    tableData = tableData.filter(row => !selectedRows.has(row.id));
+                    selectedRows.clear();
+                    renderTable();
+                }
+            }
+
+            // Search functionality
+            function searchTable(query) {
+                if (!query.trim()) {
+                    renderTable();
+                    return;
+                }
+                
+                const lowerCaseQuery = query.toLowerCase();
+                const filteredData = tableData.filter(row => 
+                    row.name.toLowerCase().includes(lowerCaseQuery) ||
+                    row.email.toLowerCase().includes(lowerCaseQuery) ||
+                    row.department.toLowerCase().includes(lowerCaseQuery) ||
+                    row.position.toLowerCase().includes(lowerCaseQuery) ||
+                     row.connector.toLowerCase().includes(lowerCaseQuery) ||
+                    row.status.toLowerCase().includes(lowerCaseQuery)
+                );
+                
+                renderTable(filteredData);
+            }
+
+            // Open modal for adding/editing
+            function openModal(rowId = null) {
+                if (rowId) {
+                    // Editing existing row
+                    isEditing = true;
+                    editingRowId = rowId;
+                    modalTitle.textContent = 'Edit Qualifier';
+                    
+                    const row = tableData.find(r => r.id === rowId);
+                    if (row) {
+                        inputName.value = row.name;
+                        inputEmail.value = row.email;
+                        inputDepartment.value = row.department;
+                        inputPosition.value = row.position;
+                        inputConnector.value = row.connector;
+                        inputStatus.value = row.status;
+                    }
+                } else {
+                    // Adding new row
+                    isEditing = false;
+                    editingRowId = null;
+                    modalTitle.textContent = 'Add New Qualifier';
+                    rowForm.reset();
+                }
+                
+                rowModal.style.display = 'flex';
+            }
+
+            // Close modal
+            function closeModal() {
+                rowModal.style.display = 'none';
+                isEditing = false;
+                editingRowId = null;
+                rowForm.reset();
+            }
+
+            // Initialize table with sample data
+            renderTable();
+
+            // Event Listeners
+
+            // Search input
+            searchInput.addEventListener('input', function() {
+                searchTable(this.value);
+            });
+
+            // Add row button
+            addRowBtn.addEventListener('click', function() {
+                openModal();
+            });
+
+            // Delete selected button
+            deleteSelectedBtn.addEventListener('click', deleteSelectedRows);
+
+            // Select all checkbox
+            selectAllCheckbox.addEventListener('change', function() {
+                const rowCheckboxes = document.querySelectorAll('.row-select');
+                rowCheckboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                    const rowId = parseInt(checkbox.getAttribute('data-id'));
+                    
+                    if (this.checked) {
+                        selectedRows.add(rowId);
+                    } else {
+                        selectedRows.delete(rowId);
+                    }
+                });
+                
+                deleteSelectedBtn.style.display = this.checked ? 'inline-flex' : 'none';
+            });
+
+            // Table body event delegation
+            tableBody.addEventListener('click', function(e) {
+                const target = e.target;
+                const row = target.closest('tr');
+                if (!row) return;
+                
+                const rowId = parseInt(row.getAttribute('data-id'));
+                
+                // Edit button click
+                if (target.closest('.edit-btn')) {
+                    openModal(rowId);
+                }
+                
+                // Delete button click
+                if (target.closest('.delete-btn')) {
+                    if (confirm('Are you sure you want to delete this qualfier?')) {
+                        deleteRow(rowId);
+                    }
+                }
+                
+                // Row checkbox click
+                if (target.classList.contains('row-select')) {
+                    const isChecked = target.checked;
+                    
+                    if (isChecked) {
+                        selectedRows.add(rowId);
+                    } else {
+                        selectedRows.delete(rowId);
+                        selectAllCheckbox.checked = false;
+                    }
+                    
+                    deleteSelectedBtn.style.display = selectedRows.size > 0 ? 'inline-flex' : 'none';
+                }
+            });
+
+            // Double-click to edit inline
+            tableBody.addEventListener('dblclick', function(e) {
+                const target = e.target;
+                if (!target.classList.contains('editable-cell')) return;
+                
+                const input = target.querySelector('input, select');
+                if (!input) return;
+                
+                // Make editable
+                input.removeAttribute('readonly');
+                input.focus();
+                
+                // Save on blur
+                const saveOnBlur = function() {
+                    input.setAttribute('readonly', true);
+                    
+                    const row = input.closest('tr');
+                    const rowId = parseInt(row.getAttribute('data-id'));
+                    const field = target.getAttribute('data-field');
+                    const value = input.value;
+                    
+                    // Update data
+                    const index = tableData.findIndex(row => row.id === rowId);
+                    if (index !== -1) {
+                        tableData[index][field] = value;
+                        
+                        // If status field changed, re-render the status badge
+                        if (field === 'status') {
+                            renderTable();
+                        }
+                    }
+                    
+                    input.removeEventListener('blur', saveOnBlur);
+                    input.removeEventListener('keydown', saveOnEnter);
+                };
+                
+                // Save on Enter key
+                const saveOnEnter = function(e) {
+                    if (e.key === 'Enter') {
+                        saveOnBlur();
+                    }
+                };
+                
+                input.addEventListener('blur', saveOnBlur);
+                input.addEventListener('keydown', saveOnEnter);
+            });
+
+            // Modal form submission
+            rowForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const rowData = {
+                    name: inputName.value,
+                    email: inputEmail.value,
+                    department: inputDepartment.value,
+                    position: inputPosition.value,
+                    connector: inputConnector.value,
+                    status: inputStatus.value
+                };
+                
+                if (isEditing && editingRowId) {
+                    updateRow(editingRowId, rowData);
+                } else {
+                    addRow(rowData);
+                }
+                
+                closeModal();
+            });
+
+            // Cancel modal button
+            cancelModalBtn.addEventListener('click', closeModal);
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === rowModal) {
+                    closeModal();
+                }
+            });
+        });
+        
+        </script>
+         
+
+
+</div></body></html>
